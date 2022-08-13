@@ -9,6 +9,7 @@ typedef struct a1{
     std::set<a2> proposed;
     bool paired = false;
     bool emptyProp = (proposed.size() == prefList.size());
+    a1(std::string, std::map<int, a2>, std::set<a2>);
 };
 
 typedef struct a2{
@@ -16,6 +17,7 @@ typedef struct a2{
     std::map<std::string, int> prefList;
     a1* engaged;
     bool paired = false;
+    a2(std::string name, std::map<std::string, int> prefList, a1* engaged);
 };
 
 std::set<a1> setIsFinished(std::set<a1> setA1){
@@ -50,6 +52,20 @@ void stableMatching(std::set<a1> a1s){
     } 
 }
 
+//generate a1 constructor
+a1::a1(std::string name, std::map<int, a2> prefList, std::set<a2> proposed){
+    this->name = name;
+    this->prefList = prefList;
+    this->proposed = proposed;
+}
+
+
+// generate a2 constructor
+a2::a2(std::string name, std::map<std::string, int> prefList, a1* engaged){
+    this->name = name;
+    this->prefList = prefList;
+    this->engaged = engaged;
+}
 
 
 
