@@ -56,12 +56,9 @@ nat quedanPorAsignar(nat* argv, nat cantHosp){
 Asignacion asignarResidencias(nat m, nat* C, nat n, nat** hPrefs, nat** ePrefs)
 { 
   Asignacion responseAsignacion = crear_asignacion();
-
-  nat auxFlag = quedanPorAsignar(C, m);
-   
   nat h = 0;
   nat f = 0;
-  while(auxFlag <= m || auxFlag != 999){
+  while(h <= m || h != 999){
     nat e = hPrefs[h][f];
     if(!tieneParEstudiante(e, responseAsignacion)){
       par aux;
@@ -87,6 +84,7 @@ Asignacion asignarResidencias(nat m, nat* C, nat n, nat** hPrefs, nat** ePrefs)
         C[hid(auxiliarProposicion)] = C[hid(auxiliarProposicion)]+1;
         remover_par(auxiliarProposicion, responseAsignacion);
         insertar_par(aux2, responseAsignacion);
+        C[h] = C[h]-1;
       }
     }
     if(C[h] <= 0 || f >= C[h]){
@@ -95,7 +93,9 @@ Asignacion asignarResidencias(nat m, nat* C, nat n, nat** hPrefs, nat** ePrefs)
     }else{
       f = f+1;
     }
-    auxFlag = quedanPorAsignar(C, m);
+    if(h == m){
+      h = quedanPorAsignar(C, m);
+    }
   } 
     
   return responseAsignacion; // se debe retornar algo de tipo asignacion
